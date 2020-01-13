@@ -31,6 +31,9 @@ jobs:
           conda init zsh
           cd $HOME/cice
           conda env create -f configuration/scripts/machines/environment.yml
+      - name: check conda env
+        run: |
+          zsh -c 'source $HOME/.zshrc && conda activate cice && which clang && which gfortran && which mpifort && which mpicc && which make'
       - name: compile CICE
         run: |
           cd $HOME/cice
