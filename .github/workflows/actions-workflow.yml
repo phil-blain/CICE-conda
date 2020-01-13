@@ -9,12 +9,15 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
-      - name : install conda
+      - name: system info
         run: |
           which wget
           which curl
           python -c 'import os, sys; print os.path.realpath(sys.argv[1])' $(which csh)
           csh -v
+          uname -a
+      - name : install conda
+        run: |
           wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
           bash ~/miniconda.sh -b -p $HOME/miniconda
       - name: clone CICE
