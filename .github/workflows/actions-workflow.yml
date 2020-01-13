@@ -13,6 +13,8 @@ jobs:
         run: |
           which wget
           which curl
+          readlink -f $(which csh)
+          csh -v
           wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
           bash ~/miniconda.sh -b -p $HOME/miniconda
       - name: clone CICE
