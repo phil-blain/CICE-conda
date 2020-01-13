@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     name: "conda-env Catalina"
-    # This job runs on Linux
+    # This job runs on macOS 10.15 Catalina
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
@@ -22,11 +22,12 @@ jobs:
         run: |
           cd $HOME && mkdir -p cice-dirs/runs cice-dirs/baseline cice-dirs/input
           source $HOME/miniconda/bin/activate
-          conda init
+          conda init zsh
           cd $HOME/cice
           conda env create -f configuration/scripts/machines/environment.yml
       - name: compile CICE
         run: |
+          which zsh
           cd $HOME/cice
           ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1
           cd ~/cice-dirs/cases/case1 && ./cice.build
