@@ -1,0 +1,20 @@
+name: Catalina
+# This workflow is triggered on pushes to the repository.
+on: [push]
+
+jobs:
+  build:
+    name: "conda-env Catalina"
+    # This job runs on Linux
+    runs-on: macos-latest
+    steps:
+      - "wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh"
+      - "bash ~/miniconda.sh -b -p $HOME/miniconda"
+      - "git clone --recurse-submodules --branch conda-env --single-branch https://github.com/phil-blain/CICE.git $HOME/cice"
+      - "cd $HOME && mkdir -p cice-dirs/runs cice-dirs/baseline cice-dirs/input"
+      - "source $HOME/miniconda/bin/activate"
+      - "conda init"
+      - "cd $HOME/cice"
+      - "conda env create -f configuration/scripts/machines/environment.yml"
+      - "./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1"
+      - "cd ~/cice-dirs/cases/case1 && ./cice.build"
