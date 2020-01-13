@@ -18,4 +18,5 @@ script:
 - "cd $HOME/cice"
 - "conda env create -f configuration/scripts/machines/environment.yml"
 - "./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1"
+- export CPATH=$(xcrun --show-sdk-path)/usr/include
 - "cd ~/cice-dirs/cases/case1 && ./cice.build"
