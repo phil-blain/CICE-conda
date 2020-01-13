@@ -36,4 +36,4 @@ jobs:
           cd $HOME/cice
           ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1
           cd ~/cice-dirs/cases/case1
-          zsh -c 'source $HOME/.zshrc && ./cice.build'
+          zsh -c 'source $HOME/.zshrc && which clang && which gfortran && ./cice.build'
