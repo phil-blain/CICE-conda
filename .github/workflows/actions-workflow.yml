@@ -27,5 +27,6 @@ jobs:
           conda env create -f configuration/scripts/machines/environment.yml
       - name: compile CICE
         run: |
+          cd $HOME/cice
           ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1
           cd ~/cice-dirs/cases/case1 && ./cice.build
