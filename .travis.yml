@@ -12,7 +12,7 @@ osx_image:
 install: 
 - "wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh"
 - "bash ~/miniconda.sh -b -p $HOME/miniconda"
-- "git clone --recurse-submodules --branch conda-env --single-branch https://github.com/phil-blain/CICE.git $HOME/cice"
+- "git clone --recurse-submodules --branch conda-env-wip --single-branch https://github.com/phil-blain/CICE.git $HOME/cice"
 
 script:
 - "cd $HOME && mkdir -p cice-dirs/runs cice-dirs/baseline cice-dirs/input"
@@ -21,4 +21,4 @@ script:
 - "cd $HOME/cice"
 - "conda env create -f configuration/scripts/machines/environment.yml"
 - "./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1"
-- "cd ~/cice-dirs/cases/case1 && ./cice.build"
+- "cd ~/cice-dirs/cases/case1 && export CONDA_BUILD_SYSROOT=/ & ./cice.build"
