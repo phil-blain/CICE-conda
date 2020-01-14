@@ -21,4 +21,4 @@ script:
 - "cd $HOME/cice"
 - "conda env create -f configuration/scripts/machines/environment.yml"
 - "./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1"
-- "cd ~/cice-dirs/cases/case1 && export CONDA_BUILD_SYSROOT=/ & ./cice.build"
+- "cd ~/cice-dirs/cases/case1 && export CONDA_BUILD_SYSROOT=/ && ./cice.build"

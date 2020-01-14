@@ -18,6 +18,7 @@ jobs:
           uname -a
           sw_vers
           xcrun --show-sdk-path
+          xcode-select -p
       - name : install conda
         run: |
           wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
@@ -35,6 +36,7 @@ jobs:
       - name: check conda env
         run: |
           zsh -c 'source $HOME/.zshrc && conda activate cice && which clang && which gfortran && which mpifort && which mpicc && which make'
+          ls $HOME/miniconda/envs/cice/etc/conda/activate.d
       - name: compile CICE
         run: |
           cd $HOME/cice
