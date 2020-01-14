@@ -36,10 +36,10 @@ jobs:
       - name: check conda env
         run: |
           zsh -c 'source $HOME/.zshrc && conda activate cice && which clang && which gfortran && which mpifort && which mpicc && which make'
-          ls $HOME/miniconda/envs/cice/etc/conda/activate.d
+          cat $HOME/miniconda/envs/cice/etc/conda/activate.d/activate_clang_osx-64.sh
       - name: compile CICE
         run: |
           cd $HOME/cice
           ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1
           cd ~/cice-dirs/cases/case1
-          zsh -c 'source $HOME/.zshrc && export CONDA_BUILD_SYSROOT=/ &&  ./cice.build'
+          zsh -c 'source $HOME/.zshrc && ./cice.build'
