@@ -25,7 +25,7 @@ jobs:
           bash ~/miniconda.sh -b -p $HOME/miniconda
       - name: clone CICE
         run: |
-          git clone --recurse-submodules --branch conda-env-wip --single-branch https://github.com/phil-blain/CICE.git $HOME/cice
+          git clone --recurse-submodules --branch master --single-branch https://github.com/CICE-Consortium/CICE.git $HOME/cice
       - name: setup conda env
         run: |
           cd $HOME && mkdir -p cice-dirs/runs cice-dirs/baseline cice-dirs/input
