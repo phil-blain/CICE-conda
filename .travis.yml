@@ -10,16 +10,30 @@ osx_image:
 - xcode9.2
 
 install: 
+# Download miniconda
 - "wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh"
+# Install miniconda
 - "bash ~/miniconda.sh -b -p $HOME/miniconda"
-- "git clone --recurse-submodules --branch master --single-branch https://github.com/CICE-Consortium/CICE.git $HOME/cice"
+# Clone CICE
+- "git clone --recurse-submodules --branch master --single-branch --depth=1 --shallow-submodules https://github.com/CICE-Consortium/CICE.git $HOME/cice"
+# Download grid and ic
+- "wget ftp://ftp.cgd.ucar.edu/archive/Model-Data/CICE/CICE_data_ic_grid.tar.gz &&
+    tar xvfz CICE_data_ic_grid.tar.gz -C ~"
+# Download forcing data
+- "wget ftp://ftp.cgd.ucar.edu/archive/Model-Data/CICE/CICE_data_forcing_gx3_all.tar.gz &&
+  tar xvfz CICE_data_forcing_gx3_all.tar.gz -C ~"
 
 script:
+# Create CICE directories
 - "cd $HOME && mkdir -p cice-dirs/runs cice-dirs/baseline cice-dirs/input"
+# Create "cice" conda environment
 - "source $HOME/miniconda/bin/activate"
 - "conda init"
 - "cd $HOME/cice"
 - "conda env create -f configuration/scripts/machines/environment.yml"
+# Create CICE case
 - "./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1"
+# Build CICE
 - "cd ~/cice-dirs/cases/case1 && ./cice.build"
+# Run CICE
 - "cd ~/cice-dirs/cases/case1 && ./cice.run"
