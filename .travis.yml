@@ -15,7 +15,7 @@ install:
 # Install miniconda
 - "bash ~/miniconda.sh -b -p $HOME/miniconda"
 # Clone CICE
-- "git clone --recurse-submodules --branch master --single-branch --depth=1 --shallow-submodules https://github.com/CICE-Consortium/CICE.git $HOME/cice"
+- "git clone --recurse-submodules --branch tail-log-file --single-branch --depth=1 --shallow-submodules https://github.com/phil-blain/CICE.git $HOME/cice"
 # Download grid and ic
 - "wget ftp://ftp.cgd.ucar.edu/archive/Model-Data/CICE/CICE_data_ic_grid.tar.gz &&
     tar xvfz CICE_data_ic_grid.tar.gz -C ~"
