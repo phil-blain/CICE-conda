@@ -48,23 +48,41 @@ jobs:
         shell: /bin/csh {0}
         run: |
           conda activate cice && type clang && type gfortran && type mpifort && type mpicc && type make
-      - name: compile CICE (zsh)
+      - name: compile CICE (zsh) - serial (1x1)
         run: |
           cd $HOME/cice
-          ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1
+          ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case1 -p 1x1
           cd ~/cice-dirs/cases/case1
+          zsh -c 'source $HOME/.zshrc && ./cice.build'
+      - name: compile CICE (zsh) - MPI only (4x1)
+        run: |
+          cd $HOME/cice
+          ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case2 -p 4x1
+          cd ~/cice-dirs/cases/case2
+          zsh -c 'source $HOME/.zshrc && ./cice.build'
+      - name: compile CICE (zsh) - MPI+OpenMP (2x2)
+        run: |
+          cd $HOME/cice
+          ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case3 -p 2x2
+          cd ~/cice-dirs/cases/case3
+          zsh -c 'source $HOME/.zshrc && ./cice.build'
+      - name: compile CICE (zsh) - OpenMP only (1x2)
+        run: |
+          cd $HOME/cice
+          ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case4 -p 1x2
+          cd ~/cice-dirs/cases/case4
           zsh -c 'source $HOME/.zshrc && ./cice.build'
       - name: compile CICE (csh)
         run: |
           cd $HOME/cice
-          ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case2
-          cd ~/cice-dirs/cases/case2
+          ./cice.setup -m conda -e macos -c ~/cice-dirs/cases/case5
+          cd ~/cice-dirs/cases/case5
           csh -c 'source $HOME/.tcshrc && ./cice.build'
       - name: download input data
         run: |
           wget ftp://ftp.cgd.ucar.edu/archive/Model-Data/CICE/CICE_data_ic_grid.tar.gz && tar xvfz CICE_data_ic_grid.tar.gz -C ~
           wget ftp://ftp.cgd.ucar.edu/archive/Model-Data/CICE/CICE_data_forcing_gx3_all.tar.gz && tar xvfz CICE_data_forcing_gx3_all.tar.gz -C ~
-      - name: run CICE
+      - name: run CICE (zsh) - serial (1x1)
         run: |
           cd ~/cice-dirs/cases/case1
           zsh -c 'source $HOME/.zshrc && ./cice.run'
