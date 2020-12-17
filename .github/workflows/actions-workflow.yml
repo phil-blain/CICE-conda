@@ -9,6 +9,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
+      - name: reset toolchain to commandlinetools
+        run: sudo xcode-select -r
       - name: system info
         run: |
           which wget
