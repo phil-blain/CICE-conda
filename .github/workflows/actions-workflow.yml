@@ -9,6 +9,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
+      - name: build and run hello world openmp fortran - homebrew gfortran
+        run: |
+          gfortran-10 -fopemp omp.f -o omp
+          OMP_NUM_THREAD=2 ./omp
       - name: reset toolchain to commandlinetools
         run: |
           sudo xcode-select -r
@@ -48,6 +52,10 @@ jobs:
         shell: /bin/csh {0}
         run: |
           conda activate cice && type clang && type gfortran && type mpifort && type mpicc && type make
+      - name: build and run hello world openmp fortran - conda-forge gfortran
+        run: |
+          zsh -c 'source $HOME/.zshrc && gfortran -fopemp omp.f -o omp'
+          OMP_NUM_THREAD=2 ./omp
       - name: compile CICE (zsh) - serial (1x1)
         run: |
           cd $HOME/cice
