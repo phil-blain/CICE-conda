@@ -54,7 +54,7 @@ jobs:
           conda activate cice && type clang && type gfortran && type mpifort && type mpicc && type make
       - name: build and run hello world openmp fortran - conda-forge gfortran
         run: |
-          zsh -c 'source $HOME/.zshrc && gfortran -fopenmp omp.f -o omp'
+          zsh -c 'source $HOME/.zshrc && conda activate cice && gfortran -fopenmp omp.f -o omp'
           OMP_NUM_THREAD=2 ./omp
       - name: compile CICE (zsh) - serial (1x1)
         run: |
