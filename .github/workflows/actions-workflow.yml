@@ -9,9 +9,17 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
-      - name: build and run hello world openmp fortran - homebrew gfortran
+      - name: build and run hello world openmp fortran - homebrew gfortran-10
         run: |
           gfortran-10 -fopenmp omp-threadprivate.f90 -o omp
+          OMP_NUM_THREAD=2 ./omp
+      - name: build and run hello world openmp fortran - homebrew gfortran-9
+        run: |
+          gfortran-9 -fopenmp omp-threadprivate.f90 -o omp
+          OMP_NUM_THREAD=2 ./omp
+      - name: build and run hello world openmp fortran - homebrew gfortran-8
+        run: |
+          gfortran-8 -fopenmp omp-threadprivate.f90 -o omp
           OMP_NUM_THREAD=2 ./omp
       - name: reset toolchain to commandlinetools
         run: |
@@ -52,6 +60,9 @@ jobs:
         shell: /bin/csh {0}
         run: |
           conda activate cice && type clang && type gfortran && type mpifort && type mpicc && type make
+          gfortran --version
+          clang --version
+          make --version
       - name: build and run hello world openmp fortran - conda-forge gfortran
         run: |
           zsh -c 'source $HOME/.zshrc && conda activate cice && gfortran -fopenmp omp-threadprivate.f90 -o omp'
